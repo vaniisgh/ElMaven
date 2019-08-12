@@ -143,7 +143,6 @@ FORMS = forms/settingsform.ui  \
         forms/librarymanager.ui \
         forms/masscalcwidget.ui \
 #	forms/ligandwidget.ui \
-        forms/adductwidget.ui \
         forms/isotopeswidget.ui \
         forms/peakdetectiondialog.ui \
         forms/pollyelmaveninterface.ui \
@@ -190,7 +189,6 @@ HEADERS +=  stable.h \
                     plot_axes.h \
                     spectrawidget.h\
                     masscalcgui.h \
-                    adductwidget.h \
                     isotopeswidget.h \
                     ligandwidget.h \
                     eicwidget.h \
@@ -266,7 +264,6 @@ database.cpp \
  history.cpp \
  spectrawidget.cpp \
  masscalcgui.cpp \
- adductwidget.cpp \
  isotopeswidget.cpp \
  ligandwidget.cpp \
  main.cpp \
