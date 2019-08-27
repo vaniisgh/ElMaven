@@ -155,8 +155,10 @@ void TestCLI::testReduceGroups() {
 	peakdetectorCLI->mavenParameters->setIonizationMode(MavenParameters::AutoDetect);
 
 	if (peakdetectorCLI->mavenParameters->compounds.size()) {
-		vector<mzSlice*> slices = peakdetectorCLI->peakDetector->processCompounds(
-				peakdetectorCLI->mavenParameters->compounds, "compounds");
+        vector<mzSlice*> slices =
+            peakdetectorCLI->peakDetector->processCompounds(peakdetectorCLI->mavenParameters->compounds,
+                                                            peakdetectorCLI->mavenParameters->getDefaultAdductList(),
+                                                            "compounds");
         peakdetectorCLI->peakDetector->processSlices(slices, "compounds");
         QVERIFY(peakdetectorCLI->mavenParameters->allgroups.size() == 22);
         peakdetectorCLI->reduceGroups();
@@ -189,8 +191,10 @@ void TestCLI::testWriteReport() {
 	peakdetectorCLI->mavenParameters->setIonizationMode(MavenParameters::AutoDetect);
 
 	if (peakdetectorCLI->mavenParameters->compounds.size()) {
-		vector<mzSlice*> slices = peakdetectorCLI->peakDetector->processCompounds(
-				peakdetectorCLI->mavenParameters->compounds, "compounds");
+        vector<mzSlice*> slices =
+            peakdetectorCLI->peakDetector->processCompounds(peakdetectorCLI->mavenParameters->compounds,
+                                                            peakdetectorCLI->mavenParameters->getDefaultAdductList(),
+                                                            "compounds");
 		peakdetectorCLI->peakDetector->processSlices(slices, "compounds");
 
         peakdetectorCLI->saveCSV(peakdetectorCLI->mavenParameters->outputdir + "testcsv", false);
