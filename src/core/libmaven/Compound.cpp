@@ -15,6 +15,7 @@ Compound::Compound(string id, string name, string formula, int charge ) {
     *@see  - double MassCalculator::computeNeutralMass(string formula) in mzMassCalculator.cpp
     */
     this->mass =  MassCalculator::computeNeutralMass(formula);
+    this->neutralMass = MassCalculator::computeNeutralMass(formula);
     this->expectedRt = -1;
     this->logP = 0;
 
@@ -76,7 +77,12 @@ float Compound::adjustedMass(int charge) {
     *@return    -    total mass by formula minus loss of electrons' mass 
     *@see  -  double MassCalculator::computeMass(string formula, int charge) in mzMassCalculator.cpp
     */
-    return MassCalculator::computeMass(formula,charge);
+     if (!formula.empty()) {
+        return MassCalculator::computeMass(formula,charge);
+     } else if (neutralMass != 0.0f) {
+         return MassCalculator::adjustMass(neutralMass, charge);
+     }
+     return mass;
 }
 
 Compound::Type Compound::type() const {
