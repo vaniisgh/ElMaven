@@ -1389,8 +1389,8 @@ void MainWindow::setCompoundFocus(Compound*c) {
 	qDebug() << "setCompoundFocus:" << c->name.c_str() << " " << charge << " "
 			<< c->expectedRt;
 
-	float mz = c->mass;
-	if (!c->formula.empty())
+    float mz = c->mass;
+    if (!c->formula.empty() || c->neutralMass != 0.0f)
 		mz = c->adjustedMass(charge);
 
 	//if (pathwayWidget != NULL && pathwayWidget->isVisible() ) {

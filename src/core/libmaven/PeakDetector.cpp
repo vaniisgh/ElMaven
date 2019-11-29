@@ -428,7 +428,7 @@ void PeakDetector::alignSamples(const int& method) {
     }
 }
 
-void PeakDetector::processSlices(vector<mzSlice *> &slices, string setName)
+void PeakDetector::processSlices(vector<mzSlice*> &slices, string setName)
 {
     if (slices.size() == 0)
         return;
@@ -482,28 +482,28 @@ void PeakDetector::processSlices(vector<mzSlice *> &slices, string setName)
             mavenParameters->clsf->scoreEICs(eics);
 
         float eicMaxIntensity = 0;
-        for (unsigned int j = 0; j < eics.size(); j++) {
+        for (auto eic : eics) {
             eicCount++;
             float max = 0;
 
             switch ((PeakGroup::QType)mavenParameters->peakQuantitation) {
             case PeakGroup::AreaTop:
-                max = eics[j]->maxAreaTopIntensity;
+                max = eic->maxAreaTopIntensity;
                 break;
             case PeakGroup::Area:
-                max = eics[j]->maxAreaIntensity;
+                max = eic->maxAreaIntensity;
                 break;
             case PeakGroup::Height:
-                max = eics[j]->maxIntensity;
+                max = eic->maxIntensity;
                 break;
             case PeakGroup::AreaNotCorrected:
-                max = eics[j]->maxAreaNotCorrectedIntensity;
+                max = eic->maxAreaNotCorrectedIntensity;
                 break;
             case PeakGroup::AreaTopNotCorrected:
-                max = eics[j]->maxAreaTopNotCorrectedIntensity;
+                max = eic->maxAreaTopNotCorrectedIntensity;
                 break;
             default:
-                max = eics[j]->maxIntensity;
+                max = eic->maxIntensity;
                 break;
             }
 
@@ -516,8 +516,7 @@ void PeakDetector::processSlices(vector<mzSlice *> &slices, string setName)
             continue;
         }
 
-        bool isIsotope = false;
-        PeakFiltering peakFiltering(mavenParameters, isIsotope);
+        PeakFiltering peakFiltering(mavenParameters, false);
         peakFiltering.filter(eics);
 
         if (!slice->compoundVector.empty()) {
@@ -582,7 +581,7 @@ void PeakDetector::identifyFeatures(const vector<Compound*>& identificationSet)
         bool matchFound = false;
         for (auto compound : identificationSet) {
             float mz = 0.0f;
-            if (compound->formula.length()) {
+            if (compound->formula.length() || compound->neutralMass != 0.0f) {
                 int charge = mavenParameters->getCharge(compound);
                 mz = compound->adjustedMass(charge);
             } else {

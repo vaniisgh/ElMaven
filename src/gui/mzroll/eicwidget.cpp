@@ -1408,7 +1408,7 @@ void EicWidget::setCompound(Compound* c)
 	MassCutoff* massCutoff=getMainWindow()->getUserMassCutoff(); 
 	float mz = 0;
 
-	if (!c->formula.empty()) {
+    if (!c->formula.empty() || c->neutralMass != 0.0f) {
 		int charge = getMainWindow()->mavenParameters->getCharge(c);
 		mz = c->adjustedMass(charge);
 	} else {
