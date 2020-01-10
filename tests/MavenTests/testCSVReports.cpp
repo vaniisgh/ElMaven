@@ -63,6 +63,7 @@ void TestCSVReports::testopenGroupReport() {
              << "medMz"
              << "medRt"
              << "maxQuality"
+             << "adductName"
              << "isotopeLabel"
              << "compound"
              << "compoundId"
@@ -79,7 +80,7 @@ void TestCSVReports::testopenGroupReport() {
     colnames.clear();
     getline(ifile, temp);
     remove(outputfile.c_str());
-    for(unsigned int i=0; i < 15; i++) { colnames << ","; }
+    for(unsigned int i=0; i < 16; i++) { colnames << ","; }
     header = colnames.join("");
     QVERIFY(header.toStdString()==temp);
 }
@@ -193,12 +194,12 @@ void TestCSVReports::verifyTargetedGroupReport(vector<mzSample*>& samplesToLoad,
     //check if number of columns is correct
     vector<std::string> header;
     mzUtils::splitNew(headersString, "," , header);
-    QVERIFY(header.size() == 16);
+    QVERIFY(header.size() == 17);
 
     // check if parent group values are correctly written
     vector<std::string> parentValues;
     mzUtils::splitNew(parentString, "," , parentValues);
-    QVERIFY(parentValues.size() == 16);
+    QVERIFY(parentValues.size() == 17);
     QVERIFY(parentValues[0] == "");
     QVERIFY(parentValues[1] == "1");
     QVERIFY(parentValues[2] == "1");
@@ -206,20 +207,21 @@ void TestCSVReports::verifyTargetedGroupReport(vector<mzSample*>& samplesToLoad,
     QCOMPARE(stof(parentValues[4]), 665.215942f);
     QCOMPARE(stof(parentValues[5]), TestUtils::roundTo(1.463882f, 3));
     QCOMPARE(stof(parentValues[6]), 0.847695f);
-    QVERIFY(parentValues[7] == "C12 PARENT");
-    QVERIFY(parentValues[8] == "Stachyose");
-    QVERIFY(parentValues[9] == "HMDB03553");
-    QVERIFY(parentValues[10] == "C24H42O21");
-    QCOMPARE(stof(parentValues[11]), TestUtils::roundTo(0.646118f, 3));
-    QCOMPARE(stof(parentValues[12]), 2.018557f);
-    QCOMPARE(stof(parentValues[13]), 665.215942f);
-    QCOMPARE(stof(parentValues[14]), 58567.76f);
-    QCOMPARE(stof(parentValues[15]), 38766.77f);
+    QVERIFY(parentValues[7] == "[M-H]-");
+    QVERIFY(parentValues[8] == "C12 PARENT");
+    QVERIFY(parentValues[9] == "Stachyose");
+    QVERIFY(parentValues[10] == "HMDB03553");
+    QVERIFY(parentValues[11] == "C24H42O21");
+    QCOMPARE(stof(parentValues[12]), TestUtils::roundTo(0.646118f, 3));
+    QCOMPARE(stof(parentValues[13]), 2.018557f);
+    QCOMPARE(stof(parentValues[14]), 665.215942f);
+    QCOMPARE(stof(parentValues[15]), 58567.76f);
+    QCOMPARE(stof(parentValues[16]), 38766.77f);
 
     // check if labelled child values are correctly written
     vector<std::string> childValues;
     mzUtils::splitNew(labelString, "," , childValues);
-    QVERIFY(childValues.size() == 16);
+    QVERIFY(childValues.size() == 17);
     QVERIFY(childValues[0] == "");
     QVERIFY(childValues[1] == "1");
     QVERIFY(childValues[2] == "2");
@@ -227,15 +229,16 @@ void TestCSVReports::verifyTargetedGroupReport(vector<mzSample*>& samplesToLoad,
     QCOMPARE(stof(childValues[4]), 666.219666f);
     QCOMPARE(stof(childValues[5]), TestUtils::roundTo(1.475023f, 3));
     QCOMPARE(stof(childValues[6]), 0.130955f);
-    QVERIFY(childValues[7] == "C13-label-1");
-    QVERIFY(childValues[8] == "Stachyose");
-    QVERIFY(childValues[9] == "HMDB03553");
-    QVERIFY(childValues[10] == "C24H42O21");
-    QCOMPARE(stof(childValues[11]), TestUtils::roundTo(0.634977f, 3));
-    QCOMPARE(stof(childValues[12]), 2.565203f);
-    QCOMPARE(stof(childValues[13]), 665.215942f);
-    QCOMPARE(stof(childValues[14]), 6103.33f);
-    QCOMPARE(stof(childValues[15]), 0.00f);
+    QVERIFY(childValues[7] == "[M-H]-");
+    QVERIFY(childValues[8] == "C13-label-1");
+    QVERIFY(childValues[9] == "Stachyose");
+    QVERIFY(childValues[10] == "HMDB03553");
+    QVERIFY(childValues[11] == "C24H42O21");
+    QCOMPARE(stof(childValues[12]), TestUtils::roundTo(0.634977f, 3));
+    QCOMPARE(stof(childValues[13]), 2.565203f);
+    QCOMPARE(stof(childValues[14]), 665.215942f);
+    QCOMPARE(stof(childValues[15]), 6103.33f);
+    QCOMPARE(stof(childValues[16]), 0.00f);
 }
 
 void TestCSVReports::verifyUntargetedGroupReport(vector<mzSample*>& samplesToLoad,
@@ -264,12 +267,12 @@ void TestCSVReports::verifyUntargetedGroupReport(vector<mzSample*>& samplesToLoa
     //check if number of columns is correct
     vector<std::string> header;
     mzUtils::splitNew(headersString, "," , header);
-    QVERIFY(header.size() == 16);
+    QVERIFY(header.size() == 17);
 
     // check if group values are correctly written
     vector<std::string> parentValues;
     mzUtils::splitNew(parentString, "," , parentValues);
-    QVERIFY(parentValues.size() == 16);
+    QVERIFY(parentValues.size() == 17);
     QVERIFY(parentValues[0] == "");
     QVERIFY(parentValues[1] == "0");
     QVERIFY(parentValues[2] == "1");
@@ -278,14 +281,15 @@ void TestCSVReports::verifyUntargetedGroupReport(vector<mzSample*>& samplesToLoa
     QCOMPARE(stof(parentValues[5]), TestUtils::roundTo(1.125f, 3));
     QCOMPARE(stof(parentValues[6]), 0.802657f);
     QVERIFY(parentValues[7] == "");
-    QVERIFY(parentValues[8] == "124.007996@1.125152");
+    QVERIFY(parentValues[8] == "");
     QVERIFY(parentValues[9] == "124.007996@1.125152");
-    QVERIFY(parentValues[10] == "");
-    QCOMPARE(stof(parentValues[11]), TestUtils::roundTo(0.000f, 3));
-    QCOMPARE(stof(parentValues[12]), 0.000000f);
-    QCOMPARE(stof(parentValues[13]), 124.007996f);
-    QCOMPARE(stof(parentValues[14]), 420679136.00f);
-    QCOMPARE(stof(parentValues[15]), 424024704.00f);
+    QVERIFY(parentValues[10] == "124.007996@1.125152");
+    QVERIFY(parentValues[11] == "");
+    QCOMPARE(stof(parentValues[12]), TestUtils::roundTo(0.000f, 3));
+    QCOMPARE(stof(parentValues[13]), 0.000000f);
+    QCOMPARE(stof(parentValues[14]), 124.007996f);
+    QCOMPARE(stof(parentValues[15]), 420679136.00f);
+    QCOMPARE(stof(parentValues[16]), 424024704.00f);
 }
 
 void TestCSVReports::verifyTargetedPeakReport(vector<mzSample*>& samplesToLoad,
