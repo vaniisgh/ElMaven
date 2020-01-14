@@ -291,6 +291,7 @@ Q_SIGNALS:
 	void reBoot();
     void metaCsvFileLoaded();
     void loadedSettings();
+	void updateNow();
 
 protected:
 	void closeEvent(QCloseEvent *event);
