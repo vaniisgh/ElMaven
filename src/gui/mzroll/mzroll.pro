@@ -171,6 +171,7 @@ HEADERS +=  stable.h \
     infodialog.h \
             librarymanager.h \
             mainwindow.h \
+    multiselectcombobox.h \
             tinyplot.h \
             node.h \
                     enzyme_node.h \
@@ -249,6 +250,7 @@ SOURCES += mainwindow.cpp  \
 database.cpp \
     infodialog.cpp \
            librarymanager.cpp \
+    multiselectcombobox.cpp \
  plotdock.cpp \
  spectralhit.cpp \
  treedockwidget.cpp \
