@@ -897,11 +897,11 @@ QStringList PollyElmavenInterfaceDialog::_prepareFilesToUpload(QDir qdir,
     QCoreApplication::processEvents();
 
     if (groupSetCombo->currentIndex() == 0) {
-        peakTable->wholePeakSet();
+        peakTable->allPeaks();
     } else if (groupSetCombo->currentIndex() == 1) {
-        peakTable->goodPeakSet();
+        peakTable->goodPeaks();
     } else if (groupSetCombo->currentIndex() == 2) {
-        peakTable->excludeBadPeakSet();
+        peakTable->excludeBadPeaks();
     }
 
     peakTable->treeWidget->selectAll();
