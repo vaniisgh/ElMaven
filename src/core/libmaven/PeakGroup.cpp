@@ -497,15 +497,6 @@ void PeakGroup::reduce() { // make sure there is only one peak per sample
     //	cerr << "\t\t\treduce() from " << startSize << " to " << peaks.size() << endl;
 }
 
-void PeakGroup::setLabel(char label)
-{
-    this->label = label;
-    for (auto& child : children) {
-        if (child.tagString == "C12 PARENT")
-            child.setLabel(label);
-    }
-}
-
 float PeakGroup::massCutoffDist(float cmass,MassCutoff *massCutoff)
 {
     return mzUtils::massCutoffDist(cmass,meanMz,massCutoff);
@@ -905,6 +896,11 @@ void PeakGroup::setUserLabel(char label)
     _predictionProbability = 0.0f;
     _predictionInference.clear();
     _userLabel = label;
+
+    for (auto& child : children) {
+        if (child.tagString == "C12 PARENT")
+            child.setUserLabel(label);
+    }
 }
 
 void PeakGroup::setPredictedLabel(const ClassifiedLabel label,
