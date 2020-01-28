@@ -122,6 +122,9 @@ void CSVReports::insertGroupReportColumnNamesintoCSVFile(string outputfile,
                                 << "ms2Purity";
         }
 
+        groupReportcolnames << "classificationLabel"
+                            << "classificationProbability";
+
         int cohort_offset = groupReportcolnames.size() - 1;
         QString header = groupReportcolnames.join(SEP.c_str());
         groupReport << header.toStdString();
@@ -433,6 +436,9 @@ void CSVReports::writeGroupInfo(PeakGroup* group) {
                     << SEP << groupToWrite->fragMatchScore.mzFragError
                     << SEP << groupToWrite->fragmentationPattern.purity;
     }
+
+    groupReport << SEP << PeakGroup::labelToString(group->predictedLabel())
+                << SEP << group->predictionProbability();
 
     // for intensity values, we only write two digits of floating point precision
     // since these values are supposed to be large (in the order of > 10^3).
